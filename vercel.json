@@ -1,0 +1,34 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "api/index.js",
+            "use": "@vercel/node",
+            "config": {
+                "maxLambdaSize": "50mb"
+            }
+        },
+        {
+            "src": "client/package.json",
+            "use": "@vercel/static-build",
+            "config": {
+                "distDir": "dist"
+            }
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "/api/index.js"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/client/$1"
+        }
+    ],
+    "env": {
+        "CLOUDINARY_CLOUD_NAME": "@cloudinary_cloud_name",
+        "CLOUDINARY_API_KEY": "@cloudinary_api_key",
+        "CLOUDINARY_API_SECRET": "@cloudinary_api_secret"
+    }
+}
